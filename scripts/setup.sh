@@ -12,6 +12,7 @@ main () {
   install_apt_add
   install_tools
   install_nodejs
+  install_nginx
 #  install_rbenv
   install_rvm
   clean_up_packages
@@ -21,6 +22,8 @@ fix_sudo () {
   # Set up sudo
   echo %vagrant ALL=NOPASSWD:ALL > /etc/sudoers.d/vagrant
   chmod 0440 /etc/sudoers.d/vagrant
+  # add the sudo group
+  groupadd sudo
   # Setup sudo to allow no-password sudo for "sudo"
   usermod -a -G sudo vagrant
 }
@@ -86,10 +89,10 @@ install_apt_add () {
 #   sudo apt-get update
 # }
 
-# install_nginx () {
-#   print_section "Installing nginx"
-#   sudo apt-get install -y nginx || fail "Unable to install Nginx"
-# }
+install_nginx () {
+  print_section "Installing nginx"
+  sudo apt-get install -y nginx || fail "Unable to install Nginx"
+}
 
 # install_php5_fpm () {
 #   print_section "Installing PHP5 FPM"
